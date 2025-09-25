@@ -5,10 +5,10 @@ import (
 )
 
 type StringBuilderI interface {
-	a(format string, a ...any) StringBuilderI
-	am(amount int, format string, a ...any) StringBuilderI
-	toString() string
-	nl() StringBuilderI
+	A(format string, a ...any) StringBuilderI
+	AM(amount int, format string, a ...any) StringBuilderI
+	ToString() string
+	NL() StringBuilderI
 }
 
 type BuilderType int
@@ -19,12 +19,10 @@ const (
 	CMD
 )
 
-func newStringBuilder(t BuilderType) (StringBuilderI, error) {
+func NewStringBuilder(t BuilderType) (StringBuilderI, error) {
 	switch t {
 	case PlainText:
 		return &baseStringBuilder{}, nil
-	case CMD:
-		return &cmdStringBuilder{}, nil
 	default:
 		return nil, errors.New("unsupported builder type")
 	}

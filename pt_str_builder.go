@@ -2,33 +2,32 @@ package gostringbuilder
 
 import (
 	"fmt"
-	"strings"
 )
 
 type baseStringBuilder struct {
-	builder strings.Builder
+	builder stringBuilder
 }
 
-func (sb *baseStringBuilder) a(format string, a ...any) StringBuilderI {
+func (sb *baseStringBuilder) A(format string, a ...any) StringBuilderI {
 	formattedString := fmt.Sprintf(format, a...)
-	sb.builder.WriteString(formattedString)
+	sb.builder.as(formattedString)
 	return sb
 }
 
-func (sb *baseStringBuilder) am(amount int, format string, a ...any) StringBuilderI {
+func (sb *baseStringBuilder) AM(amount int, format string, a ...any) StringBuilderI {
 	formattedString := fmt.Sprintf(format, a...)
 	for range amount {
-		sb.builder.WriteString(formattedString)
+		sb.builder.as(formattedString)
 	}
 	return sb
 }
 
-func (sb *baseStringBuilder) nl() StringBuilderI {
-	sb.builder.WriteString("\n")
+func (sb *baseStringBuilder) NL() StringBuilderI {
+	sb.builder.as("\n")
 	return sb
 }
 
-func (sb *baseStringBuilder) toString() string {
-	return sb.builder.String()
+func (sb *baseStringBuilder) ToString() string {
+	return sb.builder.writeString()
 }
 
